@@ -2,9 +2,17 @@
   <PracticeTable
       v-slot:default="practice"
       :practices="practices"
-      @refresh="refresh">
-<!--    {{ slotProp }}-->
-    <ActivityTable :practice-id="practice.practiceId" :practice-ended="practice.practiceEnded"/>
+      @refresh="refresh"
+      :renameable="privileged"
+      :allow-append="privileged"
+      :show-join="false"
+      :privileged="privileged">
+    <ActivityTable
+        :practice-id="practice.practiceId"
+        :practice-ended="practice.practiceEnded"
+        :renameable="privileged"
+        :allow-append="privileged"
+        :privileged="privileged"/>
   </PracticeTable>
 </template>
 
@@ -25,6 +33,11 @@ export default defineComponent({
   data() {
     return {
       practices: [],
+    }
+  },
+  computed: {
+    privileged() {
+      return this.$store.getters['user/privileged']
     }
   },
   methods: {

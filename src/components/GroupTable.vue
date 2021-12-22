@@ -1,5 +1,5 @@
 <template>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
     <tr>
       <th>小组编号</th>
@@ -13,14 +13,16 @@
                      :key="group.groupID"
                      :group="group"
                      @delete="refresh"
-                     @rename="refresh">
+                     @rename="refresh"
+                     :privileged="privileged">
         <UserTable :group-id="group.groupID" />
       </GroupTableRow>
       <GroupTableRow v-for="group in groupsData"
                      :key="group.groupID"
                      :group="group"
                      @delete="refresh"
-                     @rename="refresh">
+                     @rename="refresh"
+                     :privileged="privileged">
         <UserTable :group-id="group.groupID" />
       </GroupTableRow>
     </tbody>
@@ -49,6 +51,10 @@ export default defineComponent({
     practiceId: {
       type: Number,
       default: -1
+    },
+    privileged: {
+      type: Boolean,
+      required: true
     }
   },
   data() {

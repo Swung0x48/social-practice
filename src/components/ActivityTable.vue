@@ -1,5 +1,5 @@
 <template>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>进度编号</th>
@@ -15,8 +15,9 @@
           :key="activity.activityID"
           @delete="refresh"
           @rename="refresh"
-      />
-      <AppendRow v-if="!practiceEnded" @append="addActivityHandler" placeholder="请输入新的进度名称..." />
+          :renameable="privileged"
+          :privileged="privileged"/>
+      <AppendRow v-if="!practiceEnded && allowAppend && privileged" @append="addActivityHandler" placeholder="请输入新的进度名称..." />
     </thead>
   </table>
 </template>
@@ -38,6 +39,14 @@ export default defineComponent({
       required: true
     },
     practiceEnded: {
+      type: Boolean,
+      required: true
+    },
+    privileged: {
+      type: Boolean,
+      required: true
+    },
+    allowAppend: {
       type: Boolean,
       required: true
     }

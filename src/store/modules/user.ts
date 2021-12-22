@@ -13,6 +13,9 @@ const user = {
         valid(state: User): boolean {
             return state.role !== ''
         },
+        privileged(state: User) {
+            return state.role === 'teacher' || state.role === 'admin'
+        },
         // token(state: User): string {
         //     return state.token
         // }

@@ -6,7 +6,8 @@
     <RenameableLabel
       :name="group.groupName"
       @rename="rename"
-    />
+      :data-bs-target="`#${bsTarget}`"
+      :privileged="privileged"/>
     <td data-bs-toggle="collapse" :data-bs-target="`#${bsTarget}`">
       {{ group.practiceID }}
     </td>
@@ -43,6 +44,10 @@ export default defineComponent({
     group: {
       type: Object,
       required: true,
+    },
+    privileged: {
+      type: Boolean,
+      required: true
     },
   },
   methods: {

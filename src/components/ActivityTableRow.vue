@@ -5,7 +5,9 @@
     </td>
     <RenameableLabel
         :name="activity.activityName"
-        @rename="submitRename" />
+        :data-bs-target="`#${bsTarget}`"
+        @rename="submitRename"
+        :privileged="privileged"/>
     <td data-bs-toggle="collapse" :data-bs-target="`#${bsTarget}`">
       {{ activity.startTime }}
     </td>
@@ -34,6 +36,10 @@ export default {
     activity: {
       type: Object,
       required: true
+    },
+    privileged: {
+      type: Boolean,
+      required: true
     }
   },
   computed: {
@@ -50,7 +56,7 @@ export default {
         return '已结束'
       else
         return this.activity.state
-    }
+    },
   },
   methods: {
     submitRename(e) {

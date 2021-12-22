@@ -1,6 +1,14 @@
 <template>
-  <PracticeTable v-slot:default="practice" :practices="practices">
-    <GroupTable :practice-id="practice.practiceId" />
+  <PracticeTable
+      v-slot:default="practice"
+      :practices="practices"
+      :renameable="false"
+      :allow-append="false"
+      :show-join="true"
+      :privileged="privileged">
+    <GroupTable
+        :practice-id="practice.practiceId"
+        :renameable="false" :privileged="privileged"/>
 <!--    <ActivityTable :practice-id="practice.practiceId" :practice-ended="practice.practiceEnded"/>-->
   </PracticeTable>
 </template>
@@ -19,6 +27,12 @@ export default defineComponent({
   data() {
     return {
       practices: [],
+    }
+  },
+  computed: {
+    privileged() {
+      return this.$store.getters['user/privileged']
+      // return this.$store.state.user.role === 'teacher' || this.$store.state.user.role === 'admin'
     }
   },
   methods: {

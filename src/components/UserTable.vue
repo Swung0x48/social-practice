@@ -5,7 +5,7 @@
       <th>学号/工号</th>
       <th>用户名</th>
       <th>身份</th>
-      <th>操作</th>
+<!--      <th>操作</th>-->
     </tr>
     <UserTableRow
         v-for="user in users"

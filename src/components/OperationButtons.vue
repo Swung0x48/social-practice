@@ -2,11 +2,10 @@
   <td>
     <div class="btn-group" role="group">
       <button v-if="joined === 0" class="btn btn-success" type="button"
-              @click="deleteHandler">
+              @click="joinHandler">
         加入
       </button>
-      <button v-else-if="joined === 1" class="btn btn-success disabled" type="button"
-              @click="deleteHandler">
+      <button v-else-if="joined === 1" class="btn btn-success disabled" type="button">
         已加入
       </button>
       <button class="btn btn-danger" type="button"
@@ -19,8 +18,7 @@
         结束
       </button>
       <button v-else-if="state === 1"
-              class="btn btn-dark disabled" type="button"
-              @click="endHandler">
+              class="btn btn-dark disabled" type="button">
         已结束
       </button>
     </div>
@@ -42,13 +40,18 @@ export default defineComponent({
       required: true
     },
   },
+  computed: {
+  },
   methods: {
     deleteHandler() {
       this.$emit('delete')
     },
     endHandler() {
       this.$emit('end')
-    }
+    },
+    joinHandler() {
+      this.$emit('join')
+    },
   }
 })
 </script>

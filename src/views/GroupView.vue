@@ -1,5 +1,9 @@
 <template>
-  <GroupTable @refresh="refresh" :groups="groups" />
+  <GroupTable
+      @refresh="refresh"
+      :groups="groups"
+      :renameable="privileged"
+      :privileged="privileged"/>
 </template>
 
 <script lang="ts">
@@ -15,6 +19,11 @@ export default defineComponent({
   data() {
     return {
       groups: []
+    }
+  },
+  computed: {
+    privileged() {
+      return this.$store.getters['user/privileged']
     }
   },
   methods: {

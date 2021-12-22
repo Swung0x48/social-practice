@@ -5,7 +5,10 @@
     </td>
     <RenameableLabel
         :name="practice.practiceName"
-        @rename="submitRename" />
+        @rename="submitRename"
+        :data-bs-target="`#${bsTarget}`"
+        :privileged="privileged"
+    />
     <td data-bs-toggle="collapse" :data-bs-target="`#${bsTarget}`">
       {{ practice.startTime }}
     </td>
@@ -17,7 +20,7 @@
     </td>
     <OperationButtons
         :state="practice.state"
-        :joined="practice.isInside"
+        :joined="!showJoin ? -1 : practice.isInside"
         @delete="deletePractice"
         @end="endPractice" />
   </tr>
@@ -41,7 +44,15 @@ export default {
     practice: {
       type: Object,
       required: true
-    }
+    },
+    privileged: {
+      type: Boolean,
+      required: true
+    },
+    showJoin: {
+      type: Boolean,
+      required: true
+    },
   },
   computed: {
     bsTarget() {

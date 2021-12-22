@@ -1,5 +1,5 @@
 <template>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>社会实践活动编号</th>
@@ -16,11 +16,13 @@
         :practice="practice"
         :key="practice.practiceID"
         @delete="refresh"
-        @rename="refresh">
+        @rename="refresh"
+        :showJoin="showJoin"
+        :privileged="privileged">
         <slot :practice-id="practice.practiceID" :practice-ended="practice.state === 1"></slot>
 <!--        <ActivityTable :practice-id="practice.practiceID" :practice-ended="practice.state === 1"/>-->
       </PracticeTableRow>
-      <AppendRow @append="addPracticeHandler" placeholder="请输入新的活动名称..."/>
+      <AppendRow v-if="allowAppend && privileged" @append="addPracticeHandler" placeholder="请输入新的活动名称..."/>
     </tbody>
   </table>
 </template>
@@ -44,6 +46,18 @@ export default defineComponent({
       type: Array,
       required: true,
     },
+    privileged: {
+      type: Boolean,
+      required: true
+    },
+    showJoin: {
+      type: Boolean,
+      required: true
+    },
+    allowAppend: {
+      type: Boolean,
+      required: true
+    }
   },
   // data() {
   //   return {
