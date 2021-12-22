@@ -16,6 +16,13 @@
                      @rename="refresh">
         <UserTable :group-id="group.groupID" />
       </GroupTableRow>
+      <GroupTableRow v-for="group in groupsData"
+                     :key="group.groupID"
+                     :group="group"
+                     @delete="refresh"
+                     @rename="refresh">
+        <UserTable :group-id="group.groupID" />
+      </GroupTableRow>
     </tbody>
   </table>
 </template>
@@ -23,7 +30,7 @@
 <script lang="ts">
 import {defineComponent, onBeforeMount} from 'vue'
 import GroupTableRow from '@/components/GroupTableRow.vue'
-import {getAllGroup} from '@/services/group'
+import {getAllGroup, getGroupByPracticeID} from '@/services/group'
 import {isLoggedIn} from '@/services/user'
 import {useRouter} from 'vue-router'
 import UserTable from '@/components/UserTable.vue'
@@ -37,14 +44,18 @@ export default defineComponent({
   props: {
     groups: {
       type: Array,
-      required: true
+      default: () => []
+    },
+    practiceId: {
+      type: Number,
+      default: -1
     }
   },
-  // data() {
-  //   return {
-  //     groups: []
-  //   }
-  // },
+  data() {
+    return {
+      groupsData: []
+    }
+  },
   methods: {
     refresh() {
       this.$emit('refresh')
@@ -55,19 +66,19 @@ export default defineComponent({
     //   })
     // }
   },
-  // setup() {
-  //   onBeforeMount(() => {
-  //     if (!isLoggedIn())
-  //       useRouter().push('/login')
-  //   })
-  // },
-  // mounted() {
-  //   getAllGroup()
-  //     .then(res => {
-  //       console.log(res.data)
-  //       this.$data.groups = res.data
-  //     })
-  // }
+  setup() {
+    onBeforeMount(() => {
+      if (!isLoggedIn())
+        useRouter().push('/login')
+    })
+  },
+  mounted() {
+    getGroupByPracticeID(this.practiceId)
+      .then(res => {
+        console.log(res.data)
+        this.$data.groupsData = res.data
+      })
+  }
 })
 </script>
 

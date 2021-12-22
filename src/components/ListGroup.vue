@@ -22,8 +22,8 @@
     />
     <ListGroupItem
         name="发现广场"
-        link="/discovery_square"
-        :is-active="$route.path === '/discovery_square'"
+        link="/discovery"
+        :is-active="$route.path === '/discovery'"
     />
 <!--    <ListGroupItem-->
 <!--        name="进度管理"-->

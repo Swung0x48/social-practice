@@ -32,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Modal',
     // component: Login
     component: () => import(/* webpackChunkName: "about" */ '../components/Modal.vue')
+  },{
+    path: '/discovery',
+    name: 'Discovery',
+    // component: Login
+    component: () => import(/* webpackChunkName: "about" */ '../views/DiscoveryView.vue')
   },
 ]
 
