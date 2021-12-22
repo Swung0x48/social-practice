@@ -1,9 +1,28 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="hello">
+    <div class="container-fluid">
+      <Navbar />
+
+      <div class="row p-5">
+
+        <div class="col-md-3">
+          <ListGroup/>
+        </div>
+
+        <div class="col-md-9 p-3">
+          <router-view/>
+        </div>
+
+      </div>
+
+      <div class="row" id="footer">
+        <div class="col-md-12">
+          <Footer/>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <router-view/>
 </template>
 
 <style>
@@ -27,4 +46,17 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+#footer {
+  position:fixed;
+  bottom:5px;
+}
 </style>
+<script>
+import Navbar from '@/components/Navbar'
+import ListGroup from '@/components/ListGroup'
+import Footer from '@/components/Footer'
+export default {
+  components: {Footer, ListGroup, Navbar}
+}
+</script>
