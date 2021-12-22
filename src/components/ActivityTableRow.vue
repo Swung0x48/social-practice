@@ -16,7 +16,8 @@
       {{ activityStateToString }}
     </td>
     <OperationButtons
-        :ended="!activityEnded"
+        :state="this.activity.state"
+        :joined="-1"
         @delete="deleteActivity"
         @end="endActivity" />
   </tr>

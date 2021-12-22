@@ -16,7 +16,8 @@
       {{ practiceStateToString }}
     </td>
     <OperationButtons
-        :ended="!practiceEnded"
+        :state="practice.state"
+        :joined="practice.isInside"
         @delete="deletePractice"
         @end="endPractice" />
   </tr>

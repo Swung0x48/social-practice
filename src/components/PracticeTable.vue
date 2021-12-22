@@ -32,23 +32,24 @@ import {createPractice, getMyPractice} from '@/services/practice'
 import {isLoggedIn} from '@/services/user'
 import {useRouter} from 'vue-router'
 import AppendRow from '@/components/AppendRow.vue'
-import ActivityTable from '@/components/ActivityTable.vue'
 
 export default defineComponent({
   name: 'PracticeTable',
   components: {
     AppendRow,
     PracticeTableRow,
-    // ActivityTable
   },
-  data() {
-    return {
-      practices: [],
-      // currentInput: {
-      //   name: '',
-      // }
-    }
+  props: {
+    practices: {
+      type: Array,
+      required: true,
+    },
   },
+  // data() {
+  //   return {
+  //     practices: [],
+  //   }
+  // },
   // computed: {
   //   practiceEnded(id: number) {
   //     return this.practices[id].state === 1
@@ -56,42 +57,44 @@ export default defineComponent({
   // },
   methods: {
     refresh() {
-      this.practices = []
-      getMyPractice().then(res => {
-        console.log(res.data)
-        this.practices = res.data
-      })
+      this.$emit('refresh')
     },
+    // refresh() {
+    //   this.practices = []
+    //   getMyPractice().then(res => {
+    //     console.log(res.data)
+    //     this.practices = res.data
+    //   })
+    // },
     addPracticeHandler(e: string) {
       console.log(e)
       createPractice(e)
         .then(res => {
           console.log(res.data)
-          if (res.data === 1) {
-            getMyPractice().then(res => {
-              console.log(res.data)
-              this.practices = res.data
-            })
-          }
+          // if (res.data === 1) {
+          //   getMyPractice().then(res => {
+          //     console.log(res.data)
+          //     this.practices = res.data
+          //   })
+          // }
         })
         .catch(err => {
           console.log(err)
         })
-      // this.currentInput.name = ''
     },
   },
-  mounted() {
-    getMyPractice().then(res => {
-      console.log(res.data)
-      this.practices = res.data
-    })
-  },
-  setup() {
-    onBeforeMount(() => {
-      if (!isLoggedIn())
-        useRouter().push('/login')
-    })
-  }
+  // mounted() {
+  //   getMyPractice().then(res => {
+  //     console.log(res.data)
+  //     this.practices = res.data
+  //   })
+  // },
+  // setup() {
+  //   onBeforeMount(() => {
+  //     if (!isLoggedIn())
+  //       useRouter().push('/login')
+  //   })
+  // }
 })
 </script>
 
