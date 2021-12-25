@@ -17,7 +17,9 @@ export const getGroupByPracticeID = async (practiceId: number) => {
 }
 
 export const joinGroup = async (groupId: number) => {
-    return instance.post(`/group/join/${groupId}`)
+    return instance.post('/group/join', {
+        groupID: groupId
+    })
 }
 
 export const getMyGroup = async () => {
@@ -32,5 +34,12 @@ export const renameGroup = async (groupId: number, name: string) => {
     return instance.put('/group/rename', {
         groupID: groupId,
         groupName: name
+    })
+}
+
+export const scoreGroup = async (groupId: number, score: number) => {
+    return instance.put('/group/score', {
+        groupID: groupId,
+        score: score
     })
 }

@@ -8,6 +8,7 @@
         @rename="submitRename"
         :data-bs-target="`#${bsTarget}`"
         :privileged="privileged"
+        :enabled="allowedOperations?.rename"
     />
     <td data-bs-toggle="collapse" :data-bs-target="`#${bsTarget}`">
       {{ practice.startTime }}
@@ -20,9 +21,12 @@
     </td>
     <OperationButtons
         :state="practice.state"
-        :joined="!showJoin ? -1 : practice.isInside"
+        :joined="practice.isInside"
+        :allowed-operations="allowedOperations" :privileged="privileged"
         @delete="deletePractice"
-        @end="endPractice" />
+        @end="endPractice"
+        @join="joinPractice"
+    />
   </tr>
   <Collapse :bsTarget="bsTarget">
     <slot></slot>
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-import {deletePractice, endPractice, renamePractice} from '@/services/practice'
+import {deletePractice, endPractice, joinPractice, renamePractice} from '@/services/practice'
 import RenameableLabel from '@/components/RenameableLabel'
 import OperationButtons from '@/components/OperationButtons'
 // import ActivityTable from '@/components/ActivityTable'
@@ -49,8 +53,8 @@ export default {
       type: Boolean,
       required: true
     },
-    showJoin: {
-      type: Boolean,
+    allowedOperations: {
+      type: Object,
       required: true
     },
   },
@@ -102,6 +106,17 @@ export default {
           })
           .catch(err => {
             alert('结束失败')
+            console.log(err)
+          })
+    },
+    joinPractice() {
+      joinPractice(this.practice.practiceID, `${this.$store.state.user.username}的小组`)
+          .then(() => {
+            alert('加入成功')
+            this.$emit('delete')
+          })
+          .catch(err => {
+            alert('加入失败')
             console.log(err)
           })
     }

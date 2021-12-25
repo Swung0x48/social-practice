@@ -1,5 +1,4 @@
 import instance from '@/services/instance'
-import {AxiosResponse} from 'axios'
 
 export const createPractice = async (practiceName: string) => {
     return instance.post('/practice', practiceName)
@@ -17,8 +16,11 @@ export const endPractice = async (practiceId: number) => {
     return instance.put(`/practice/end/${practiceId}`)
 }
 
-export const joinPractice = async (practiceId: number) => {
-    return instance.post(`/practice/join/${practiceId}`)
+export const joinPractice = async (practiceId: number, groupName: string) => {
+    return instance.post('/practice/join', {
+        practiceID: practiceId,
+        groupName: groupName
+    })
 }
 
 export const getMyPractice = async () => {

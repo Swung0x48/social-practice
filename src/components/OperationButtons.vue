@@ -1,23 +1,23 @@
 <template>
   <td>
     <div class="btn-group" role="group">
-      <button v-if="joined === 0" class="btn btn-success" type="button"
+      <button v-if="joined === 0 && allowedOperations?.join && privileged" class="btn btn-success" type="button"
               @click="joinHandler">
-        加入
+        作为新小组加入
       </button>
-      <button v-else-if="joined === 1" class="btn btn-success disabled" type="button">
+      <button v-else-if="joined === 1 && allowedOperations?.join" class="btn btn-success disabled" type="button">
         已加入
       </button>
-      <button class="btn btn-danger" type="button"
+      <button v-if="allowedOperations?.remove && privileged" class="btn btn-danger" type="button"
               @click="deleteHandler">
         删除
       </button>
-      <button v-if="state === 0"
+      <button v-if="state === 0 && allowedOperations?.end"
               class="btn btn-dark" type="button"
               @click="endHandler">
-        结束
+        完成/结束
       </button>
-      <button v-else-if="state === 1"
+      <button v-else-if="state === 1 && allowedOperations?.end"
               class="btn btn-dark disabled" type="button">
         已结束
       </button>
@@ -39,6 +39,14 @@ export default defineComponent({
       type: Number,
       required: true
     },
+    allowedOperations: {
+      type: Object,
+      required: true
+    },
+    privileged: {
+      type: Boolean,
+      required: true
+    }
   },
   computed: {
   },

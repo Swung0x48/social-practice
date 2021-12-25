@@ -2,7 +2,7 @@
   <td v-if="!renaming"
       @click="renamePractice"
       data-bs-toggle="collapse"
-      :data-bs-target="this.privileged ? '' : dataBsTarget">
+      :data-bs-target="this.enabled ? '' : dataBsTarget">
     {{ name }}
   </td>
   <td v-else>
@@ -26,7 +26,7 @@ import {defineComponent} from 'vue'
 export default defineComponent({
   name: 'RenameableLabel',
   props: {
-    privileged: {
+    enabled: {
       type: Boolean,
       required: true
     },
@@ -45,7 +45,7 @@ export default defineComponent({
   },
   methods: {
     renamePractice() {
-      if (!this.privileged) return
+      if (!this.enabled) return
 
       this.newName = ''
       this.renaming = true

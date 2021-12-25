@@ -7,7 +7,9 @@
         :name="activity.activityName"
         :data-bs-target="`#${bsTarget}`"
         @rename="submitRename"
-        :privileged="privileged"/>
+        :privileged="privileged"
+        :enabled="allowedOperations?.rename"
+    />
     <td data-bs-toggle="collapse" :data-bs-target="`#${bsTarget}`">
       {{ activity.startTime }}
     </td>
@@ -21,7 +23,8 @@
         :state="this.activity.state"
         :joined="-1"
         @delete="deleteActivity"
-        @end="endActivity" />
+        @end="endActivity"
+        :allowed-operations="allowedOperations" :privileged="privileged"/>
   </tr>
 </template>
 
@@ -39,6 +42,10 @@ export default {
     },
     privileged: {
       type: Boolean,
+      required: true
+    },
+    allowedOperations: {
+      type: Object,
       required: true
     }
   },

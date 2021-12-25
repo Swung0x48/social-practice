@@ -2,14 +2,14 @@
   <GroupTable
       @refresh="refresh"
       :groups="groups"
-      :renameable="privileged"
+      :allowed-operations="allowedOperations"
       :privileged="privileged"/>
 </template>
 
 <script lang="ts">
 import {defineComponent, onBeforeMount} from 'vue'
 import GroupTable from '@/components/GroupTable.vue'
-import {getAllGroup} from '@/services/group'
+import {getAllGroup, getMyGroup} from '@/services/group'
 import {isLoggedIn} from '@/services/user'
 import {useRouter} from 'vue-router'
 
@@ -18,7 +18,17 @@ export default defineComponent({
   components: {GroupTable},
   data() {
     return {
-      groups: []
+      groups: [],
+      allowedOperations: {
+        rename: true,
+        join: true,
+        leave: true,
+        append: false,
+        remove: false,
+        end: false,
+        showScore: true,
+        allowScore: true,
+      },
     }
   },
   computed: {
@@ -28,7 +38,8 @@ export default defineComponent({
   },
   methods: {
     refresh() {
-      getAllGroup().then(res => {
+
+      getMyGroup().then(res => {
         this.groups = res.data
       })
     }
@@ -40,11 +51,12 @@ export default defineComponent({
     })
   },
   mounted() {
-    getAllGroup()
-        .then(res => {
-          console.log(res.data)
-          this.$data.groups = res.data
-        })
+    this.refresh()
+    // getAllGroup()
+    //     .then(res => {
+    //       console.log(res.data)
+    //       this.$data.groups = res.data
+    //     })
   }
 })
 </script>

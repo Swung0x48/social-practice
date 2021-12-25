@@ -3,7 +3,7 @@
     <td colspan="6">
       <div class="collapse" :id="bsTarget">
         <div class="card card-body">
-          <slot></slot>
+          <slot @refresh="refresh"></slot>
         </div>
       </div>
     </td>
@@ -19,6 +19,11 @@ export default defineComponent({
   props: {
     bsTarget: String
   },
+  methods: {
+    refresh() {
+      this.$emit('refresh')
+    }
+  }
   // computed: {
   //   bsTarget() {
   //     return 'practice' + this.practiceId

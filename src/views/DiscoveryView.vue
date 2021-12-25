@@ -1,15 +1,15 @@
 <template>
   <PracticeTable
       v-slot:default="practice"
+      @refresh="refresh"
       :practices="practices"
-      :renameable="false"
-      :allow-append="false"
-      :show-join="true"
+      :allowed-operations="allowedOperations"
       :privileged="privileged">
     <GroupTable
+        @refresh="refresh"
         :practice-id="practice.practiceId"
-        :renameable="false" :privileged="privileged"/>
-<!--    <ActivityTable :practice-id="practice.practiceId" :practice-ended="practice.practiceEnded"/>-->
+        :allowed-operations="allowedOperations"
+        :privileged="privileged"/>
   </PracticeTable>
 </template>
 
@@ -27,6 +27,16 @@ export default defineComponent({
   data() {
     return {
       practices: [],
+      allowedOperations: {
+        rename: false,
+        join: true,
+        leave: true,
+        append: false,
+        remove: false,
+        end: false,
+        showScore: false,
+        allowScore: false,
+      },
     }
   },
   computed: {

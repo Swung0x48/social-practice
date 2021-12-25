@@ -17,12 +17,12 @@
         :key="practice.practiceID"
         @delete="refresh"
         @rename="refresh"
-        :showJoin="showJoin"
+        :allowed-operations="allowedOperations"
         :privileged="privileged">
         <slot :practice-id="practice.practiceID" :practice-ended="practice.state === 1"></slot>
 <!--        <ActivityTable :practice-id="practice.practiceID" :practice-ended="practice.state === 1"/>-->
       </PracticeTableRow>
-      <AppendRow v-if="allowAppend && privileged" @append="addPracticeHandler" placeholder="请输入新的活动名称..."/>
+      <AppendRow v-if="allowedOperations.append && privileged" @append="addPracticeHandler" placeholder="请输入新的活动名称..."/>
     </tbody>
   </table>
 </template>
@@ -50,14 +50,10 @@ export default defineComponent({
       type: Boolean,
       required: true
     },
-    showJoin: {
-      type: Boolean,
-      required: true
+    allowedOperations: {
+      type: Object,
+      required: true,
     },
-    allowAppend: {
-      type: Boolean,
-      required: true
-    }
   },
   // data() {
   //   return {
@@ -91,6 +87,7 @@ export default defineComponent({
           //     this.practices = res.data
           //   })
           // }
+          this.refresh()
         })
         .catch(err => {
           console.log(err)

@@ -3,15 +3,12 @@
       v-slot:default="practice"
       :practices="practices"
       @refresh="refresh"
-      :renameable="privileged"
-      :allow-append="privileged"
-      :show-join="false"
+      :allowed-operations="allowedOperations"
       :privileged="privileged">
     <ActivityTable
         :practice-id="practice.practiceId"
         :practice-ended="practice.practiceEnded"
-        :renameable="privileged"
-        :allow-append="privileged"
+        :allowed-operations="allowedOperations"
         :privileged="privileged"/>
   </PracticeTable>
 </template>
@@ -33,6 +30,15 @@ export default defineComponent({
   data() {
     return {
       practices: [],
+      allowedOperations: {
+        rename: true,
+        join: false,
+        leave: true,
+        append: true,
+        remove: true,
+        end: true,
+        score: false,
+      },
     }
   },
   computed: {

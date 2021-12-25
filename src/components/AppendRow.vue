@@ -5,10 +5,8 @@
       <input type="text" :placeholder="placeholder" class="form-control" v-model="currentInput.name" />
     </td>
     <td>
-      <!--        <input type="date" class="form-control" v-model="currentInput.start_time" />-->
     </td>
     <td>
-      <!--        <input type="date" class="form-control" v-model="currentInput.end_time" />-->
     </td>
     <td>
     </td>
