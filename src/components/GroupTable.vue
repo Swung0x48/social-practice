@@ -15,7 +15,8 @@
                      :group="group"
                      @refresh="refresh"
                      :privileged="privileged"
-                     :allowed-operations="allowedOperations">
+                     :allowed-operations="allowedOperations"
+                     :practice-ended="practiceEnded">
         <UserTable :group-id="group.groupID" />
       </GroupTableRow>
       <GroupTableRow v-for="group in groupsData"
@@ -23,7 +24,8 @@
                      :group="group"
                      @refresh="refresh"
                      :privileged="privileged"
-                     :allowed-operations="allowedOperations">
+                     :allowed-operations="allowedOperations"
+                     :practice-ended="practiceEnded">
         <UserTable :group-id="group.groupID" />
       </GroupTableRow>
     </tbody>
@@ -52,6 +54,10 @@ export default defineComponent({
     practiceId: {
       type: Number,
       default: -1
+    },
+    practiceEnded: {
+      type: Boolean,
+      required: true
     },
     privileged: {
       type: Boolean,

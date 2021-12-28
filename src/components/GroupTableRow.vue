@@ -26,7 +26,7 @@
                 @click="leaveHandler">
           退出
         </button>
-        <button v-else class="btn btn-success" type="button"
+        <button v-else-if="!practiceEnded" class="btn btn-success" type="button"
                 @click="joinHandler">
           加入
         </button>
@@ -64,6 +64,10 @@ export default defineComponent({
     },
     allowedOperations: {
       type: Object,
+      required: true
+    },
+    practiceEnded: {
+      type: Boolean,
       required: true
     }
   },

@@ -22,7 +22,8 @@
     <OperationButtons
         :state="practice.state"
         :joined="practice.isInside"
-        :allowed-operations="allowedOperations" :privileged="privileged"
+        :allowed-operations="allowedOperations"
+        :privileged="privileged"
         @delete="deletePractice"
         @end="endPractice"
         @join="joinPractice"

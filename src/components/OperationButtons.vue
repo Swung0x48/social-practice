@@ -1,7 +1,7 @@
 <template>
   <td>
     <div class="btn-group" role="group">
-      <button v-if="joined === 0 && allowedOperations?.join && privileged" class="btn btn-success" type="button"
+      <button v-if="joined === 0 && allowedOperations?.join && state === 0" class="btn btn-success" type="button"
               @click="joinHandler">
         作为新小组加入
       </button>
@@ -12,7 +12,7 @@
               @click="deleteHandler">
         删除
       </button>
-      <button v-if="state === 0 && allowedOperations?.end"
+      <button v-if="state === 0 && allowedOperations?.end && priviligeGuarded"
               class="btn btn-dark" type="button"
               @click="endHandler">
         完成/结束
@@ -46,9 +46,16 @@ export default defineComponent({
     privileged: {
       type: Boolean,
       required: true
+    },
+    requirePrivilege: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
+    priviligeGuarded() {
+      return !this.requirePrivilege || this.privileged
+    }
   },
   methods: {
     deleteHandler() {

@@ -8,6 +8,7 @@
     <GroupTable
         @refresh="refresh"
         :practice-id="practice.practiceId"
+        :practice-ended="practice.practiceEnded"
         :allowed-operations="allowedOperations"
         :privileged="privileged"/>
   </PracticeTable>

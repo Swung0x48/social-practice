@@ -24,7 +24,10 @@
         :joined="-1"
         @delete="deleteActivity"
         @end="endActivity"
-        :allowed-operations="allowedOperations" :privileged="privileged"/>
+        :allowed-operations="allowedOperations"
+        :privileged="privileged"
+        :require-privilege="false"
+    />
   </tr>
 </template>
 
